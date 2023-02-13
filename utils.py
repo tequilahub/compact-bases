@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore", category=tq.TequilaWarning)
 Convenience Implementations and Structures to speed up simulation times
 """
 
-def Rot(idx, mol, label=None, s=0.5):
+def Rot(idx, mol, label=None, s=1.e-4):
     """
     Convenience implementation of Rotation gates as described in the paper
     See also ArXiv:2207.12421 Eq.(6)
@@ -143,7 +143,7 @@ class BigExpVal:
             r=1e5
         return r
 
-def GMN(circuits, H, variables, silent=False, maxiter=10, M=None):
+def GNM(circuits, H, variables, silent=False, maxiter=10, M=None):
     """
     the G(M,N) method from the paper, N is implicitly given over the number of circuits
     """
@@ -185,7 +185,7 @@ def GMN(circuits, H, variables, silent=False, maxiter=10, M=None):
     for i in range(maxiter):
         result = scipy.optimize.minimize(f, x0=list(x0.values()), jac="2-point", method="bfgs", options={"finite_diff_rel_step":1.e-5, "disp":True}, callback=callback)
         x0 = {vkeys[i]:result.x[i] for i in range(len(result.x))}
-        v,vv = static_krylov(circuits,H,x0)
+        v,vv = gem_fast(circuits,H,x0)
         for i in range(len(coeffs)):
             x0[coeffs[i]]=vv[i,0]
         if numpy.isclose(energy, v[0], atol=1.e-4):
