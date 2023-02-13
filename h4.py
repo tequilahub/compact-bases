@@ -12,8 +12,12 @@ data1 = {}
 data2 = {}
 
 # define the molecule
-geometry = "H 1.5 0.0 0.0\nH 0.0 0.0 0.0\nH 1.5 0.0 1.5\nH 0.0 0.0 1.5"
-mol = tq.Molecule(geometry=geometry, basis_set="sto-6g")
+# rectangular
+geometry1 = "H 1.5 0.0 0.0\nH 0.0 0.0 0.0\nH 1.5 0.0 1.5\nH 0.0 0.0 1.5"
+# linear
+geometry2 = "H 0.0 0.0 0.0\nH 0.0 0.0 1.5\nH 0.0 0.0 3.0\nH 0.0 0.0 4.5"
+
+mol = tq.Molecule(geometry=geometry1, basis_set="sto-6g")
 # replace with "orthonormalize_basis_orbitals()" for tq.version < 1.8.4
 mol = mol.use_native_orbitals()
 H = mol.make_hamiltonian()
