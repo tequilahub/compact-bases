@@ -117,47 +117,38 @@ for i,U in enumerate([U1,U2,U3,U4,U5,U6,U7]):
     variables = {**variables, **result.variables}
 
 v,vv = gem_fast(circuits=[U1,U2], H=H, variables=variables)
-print("Error (G1,G2) - static  : {:2.5f}".format(v[0]-fci))
+print("Error G(2,0): {:2.5f}".format(v[0]-fci))
 vx,vvx = gem_fast(circuits=[U1,U2,U3,U4], H=H, variables=variables)
-print("Error (G1,G2,G3,G4) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(4,0): {:2.5f}".format(vx[0]-fci))
 
 vx,vvx = gem_fast(circuits=[U1,U2,U3,U4,U5,U6], H=H, variables=variables)
-print("Error (G1,G2,G3,G4,G5,G6) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(6,0): {:2.5f}".format(vx[0]-fci))
 vx,vvx = gem_fast(circuits=[U1,U2,U3,U4,U5,U6,U7], H=H, variables=variables)
-print("Error (G1,G2,G3,G4,G5,G6,G7) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(7,0): {:2.5f}".format(vx[0]-fci))
 
-print("optimizing (G1,G2):")
-# add more freedom
-U1x=mol.make_ansatz(name="GS", include_reference=False, label="G1-GS")
-U2x=mol.make_ansatz(name="GS", include_reference=False, label="G2-GS")
-U1+=U1x
-U2+=U2x
-for k,v in variables.items():
-    print("{:15} : {:+2.4f}".format(str(k),v))
-variables = {**variables, **{k:1.e-3 for k in U1x.extract_variables() + U2x.extract_variables()}}
+print("optimizing G(2,2):")
+
+#add more rotation freedom
+#U1x=mol.make_ansatz(name="GS", include_reference=False, label="G1-GS")
+#U2x=mol.make_ansatz(name="GS", include_reference=False, label="G2-GS")
+#U1+=U1x
+#U2+=U2x
+#variables = {**variables, **{k:1.e-3 for k in U1x.extract_variables() + U2x.extract_variables()}}
+
 v,vv, variables = GNM(circuits=[U1,U2], H=H, variables=variables)
-for k,v in variables.items():
-    print("{:15} : {:+2.4f}".format(str(k),v))
-print("Error (G1,G2) - relaxed : {:2.5f}".format(v[0]-fci))
-
+print("Error G(2,2): {:2.5f}".format(v[0]-fci))
 vx,vvx = gem_fast(circuits=[U1,U2,U3,U4], H=H, variables=variables)
-print("Error (G1,G2,G3,G4) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(4,2): {:2.5f}".format(vx[0]-fci))
 vx,vvx = gem_fast(circuits=[U1,U2,U3,U4,U5,U6], H=H, variables=variables)
-print("Error (G1,G2,G3,G4,G5,G6) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(6,2): {:2.5f}".format(vx[0]-fci))
 vx,vvx = gem_fast(circuits=[U1,U2,U3,U4,U5,U6,U7], H=H, variables=variables)
-print("Error (G1,G2,G3,G4,G5,G6,G7) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(7,2): {:2.5f}".format(vx[0]-fci))
 
-print("optimizing (G1,G2,G3,G4):")
-
+print("optimizing G(4,4):")
 v,vv, variables = GNM(circuits=[U1,U2,U3,U4], H=H, variables=variables)
-for k,v in variables.items():
-    print("{:15} : {:+2.4f}".format(str(k),v))
-
-print("Error (G1,G2) - static  : {:2.5f}".format(v[0]-fci))
-vx,vvx = gem_fast(circuits=[U1,U2,U3,U4], H=H, variables=variables)
-print("Error (G1,G2,G3,G4) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(4,4): {:2.5f}".format(v[0]-fci))
 vx,vvx = gem_fast(circuits=[U1,U2,U3,U4,U5,U6], H=H, variables=variables)
-print("Error (G1,G2,G3,G4,G5,G6) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(6,4): {:2.5f}".format(vx[0]-fci))
 vx,vvx = gem_fast(circuits=[U1,U2,U3,U4,U5,U6,U7], H=H, variables=variables)
-print("Error (G1,G2,G3,G4,G5,G6,G7) - static  : {:2.5f}".format(vx[0]-fci))
+print("Error G(7,4): {:2.5f}".format(vx[0]-fci))
 
