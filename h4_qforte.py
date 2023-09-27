@@ -25,4 +25,5 @@ for m in [1,8]:
 
 print(fci)
 print(result.items())
-print([x-fci for x in result.values()])
+for k,v in result.items():
+    print("error for {} : {:2.5f}".format(k,fci-v))
