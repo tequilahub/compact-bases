@@ -1,4 +1,4 @@
-# Compact Effective Basis Generation
+# A Quantum Computational Approach to Multiconfigurational Valence Bond Theory
 
 Example repository for [ArXiv:2302.10660](https://arxiv.org/abs/2302.10660)
 
