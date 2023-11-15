@@ -147,28 +147,29 @@ def GNM(circuits, H, variables, silent=False, maxiter=10, M=None):
     """
     the G(M,N) method from the paper, N is implicitly given over the number of circuits
     """
-    N = len(circuits)
+    circs = [x for x in circuits]
+    N = len(circs)
     if M is None:
-        M = len(circuits)
+        M = len(circs)
     
     # fix variables for circuits that will not be part of the optimization
     for i in range(M, N):
-        U = circuits[i]
+        U = circs[i]
         U = U.map_variables(variables)
-        circuits[i] = U
+        circs[i] = U
 
     vkeys = []
-    for U in circuits:
+    for U in circs:
         vkeys+=U.extract_variables()
     
     variables = {**{k:0.0 for k in vkeys if k not in variables}, **variables}
    
-    v,vv = gem_fast(circuits,H,variables)
+    v,vv = gem_fast(circs,H,variables)
     
     x0 = {k:variables[k] for k in vkeys}
 
     coeffs = []
-    for i in range(len(circuits)):
+    for i in range(len(circs)):
         c=tq.Variable(("c",i))
         coeffs.append(c)
         x0[c] = vv[i,0]
@@ -180,12 +181,12 @@ def GNM(circuits, H, variables, silent=False, maxiter=10, M=None):
         if not silent:
             print("current energy: {:+2.4f}".format(energy))
     
-    f = BigExpVal(circuits=circuits, H=H, coeffs=coeffs)
+    f = BigExpVal(circuits=circs, H=H, coeffs=coeffs)
 
     for i in range(maxiter):
         result = scipy.optimize.minimize(f, x0=list(x0.values()), jac="2-point", method="bfgs", options={"finite_diff_rel_step":1.e-5, "disp":True}, callback=callback)
         x0 = {vkeys[i]:result.x[i] for i in range(len(result.x))}
-        v,vv = gem_fast(circuits,H,x0)
+        v,vv = gem_fast(circs,H,x0)
         for i in range(len(coeffs)):
             x0[coeffs[i]]=vv[i,0]
         if numpy.isclose(energy, v[0], atol=1.e-4):
