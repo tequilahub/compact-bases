@@ -58,7 +58,7 @@ class BraKetQulacs:
         if self.is_overlap:
             vector1 = state_bra.get_vector()
             vector2 = state_ket.get_vector()
-            result = vector1.T.dot(vector2)
+            result = vector1.conj().T.dot(vector2)
         else:
             result = self.H.get_transition_amplitude(state_bra, state_ket)
 

@@ -14,7 +14,7 @@ from tequila.apps.krylov import krylov_method
 import warnings
 warnings.filterwarnings("ignore", category=tq.TequilaWarning)
 
-from utils import Rot, gem_fast, BigExpVal, GNM, Corr 
+from qvalence import Rot, gem_fast, BigExpVal, GNM, Corr 
 
 # plot data:
 error_g1=0.0
