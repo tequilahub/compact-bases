@@ -1,6 +1,6 @@
 import tequila as tq
 import numpy
-from src.utils import Rot, Corr, GNM, gem_fast
+from qvalence import Rot, Corr, GNM, gem_fast
 import time
 start = time.time()
 
@@ -79,4 +79,4 @@ variables = {**result0.variables, **result1.variables}
 v,vv,variables = GNM(circuits=[U0,U1], variables=variables, H=H, silent=False, M=2)
 print("G(2,2)+UR: ", fci-v[0])
 end = time.time()
-print("took {}s".format(end-start), " should take <2min on intel i5-12500" 
+print("took {}s".format(end-start), " should take <2min on intel i5-12500")
