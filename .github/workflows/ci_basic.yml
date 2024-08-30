@@ -40,4 +40,4 @@ jobs:
               pip install -e .
               pip install pytest
               cd test
-              pytest 
+              pytest test.py
