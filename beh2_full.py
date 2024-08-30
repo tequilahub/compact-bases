@@ -1,6 +1,6 @@
 import tequila as tq
 import numpy
-from qvalence import Rot, Corr, GNM, gem_fast
+from qvalence.utils import Rot, Corr, GNM, gem_fast
 import time
 start = time.time()
 

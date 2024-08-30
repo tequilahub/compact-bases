@@ -1,6 +1,6 @@
 import tequila as tq
 import numpy
-from qvalence import Rot, Corr, GNM, gem_fast
+from qvalence.utils import Rot, Corr, GNM, gem_fast
 
 """
 Compute the data from Fig.1 in the paper
