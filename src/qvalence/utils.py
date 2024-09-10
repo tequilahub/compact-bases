@@ -201,9 +201,3 @@ def GNM(circuits, H, variables, silent=False, maxiter=10, M=None):
     for k in vkeys:
         variables[k] = x0[k]
     return v,vv,variables
-
-
-        
-    
-
-

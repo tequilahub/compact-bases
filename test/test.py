@@ -1,6 +1,6 @@
 import tequila as tq
 import numpy as np
-from qvalence import Rot, GNM, gem_fast, BigExpVal, BraKetQulacs
+from qvalence.utils import Rot, GNM, gem_fast, BigExpVal, BraKetQulacs
 from tequila.objective.braket import make_overlap, make_transition
 from tequila.tools.random_generators import make_random_hamiltonian
 
